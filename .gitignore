@@ -1,0 +1,18 @@
+*.iml
+.gradle/
+build/
+local.properties
+.idea/
+.DS_Store
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.keystore
+
+# Model weights are multi-GB — adb push them, never commit them.
+*.litertlm
+*.task
+
+# Device dumps pulled back for selector work.
+/dumps/

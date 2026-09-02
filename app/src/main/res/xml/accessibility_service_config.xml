@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  canRetrieveWindowContent  - required to read the view hierarchy at all.
+  canPerformGestures        - required for the dispatchGesture() tap fallback.
+  flagRetrieveInteractiveWindows - lets getWindows() see dialogs/overlays that
+                              rootInActiveWindow alone misses (Amazon upsells).
+  No packageNames filter: we deliberately observe every app so the screen
+  dumper works anywhere.
+-->
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:accessibilityEventTypes="typeWindowStateChanged|typeWindowContentChanged"
+    android:accessibilityFeedbackType="feedbackGeneric"
+    android:accessibilityFlags="flagDefault|flagRetrieveInteractiveWindows|flagIncludeNotImportantViews|flagReportViewIds"
+    android:canPerformGestures="true"
+    android:canRetrieveWindowContent="true"
+    android:description="@string/accessibility_service_description"
+    android:notificationTimeout="100" />

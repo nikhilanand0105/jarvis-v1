@@ -1,0 +1,8 @@
+<AppFunctionAppMetadata xmlns:appfn="http://schemas.android.com/apk/androidx.appfunctions"
+    appfn:description="JARVIS POC manages cross-app workflows.
+    Operational Patterns:
+    - Use 'parseStructuredIntent' to understand user requests.
+    - Use 'getProductDetails' to scrape Amazon info.
+    - Use 'draftComparisonNote' to create content.
+    - Use 'openMessagingComposer' to share result."
+    appfn:displayDescription="JARVIS POC Agentic Workflows" />

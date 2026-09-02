@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+      Best-effort only: a flow halts while the target app owns the screen, so
+      it announces the result out-of-app. Notifier also toasts, which needs no
+      permission, so denying this degrades gracefully.
+    -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <uses-feature android:name="android.hardware.telephony" android:required="false" />
+
+    <!--
+      Needed only by the voice path's "most recent photo". The photo picker
+      needs no permission at all; "pick the latest one for me" is impossible
+      without library-wide read access. Pick a photo by hand and none of this
+      is requested.
+    -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+
+    <!--
+      Package visibility (Android 11+). Without these <queries> entries
+      getLaunchIntentForPackage() and setPackage() silently fail.
+    -->
+    <queries>
+        <package android:name="in.amazon.mShop.android.shopping" />
+        <package android:name="com.amazon.mShop.android.shopping" />
+        <package android:name="com.flipkart.android" />
+        <package android:name="com.grofers.customerapp" />
+        <package android:name="com.instagram.android" />
+        <intent>
+            <action android:name="android.intent.action.SEND" />
+            <data android:mimeType="image/*" />
+        </intent>
+        <!-- Speech recogniser, for the voice command path. -->
+        <intent>
+            <action android:name="android.speech.RecognitionService" />
+        </intent>
+    </queries>
+
+    <application
+        android:usesCleartextTraffic="true"
+        android:name=".JarvisApplication"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.JarvisPoc">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.JarvisPoc">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".service.JarvisNotificationService"
+            android:label="JARVIS Notification Listener"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".service.JarvisAccessibilityService"
+            android:exported="true"
+            android:label="@string/accessibility_service_label"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config" />
+        </service>
+
+        <!-- Serves the staged JPEG to Instagram via ACTION_SEND. -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <property
+            android:name="android.app.appfunctions.app_metadata"
+            android:resource="@xml/app_metadata" />
+    
+        <activity
+            android:name=".SocActivity"
+            android:exported="true"
+            android:label="JARVIS SOC Simulator"
+            android:theme="@style/Theme.JarvisPoc">
+        </activity>
+
+    </application>
+
+</manifest>

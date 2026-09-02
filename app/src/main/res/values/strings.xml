@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">JARVIS POC</string>
+    <string name="accessibility_service_label">JARVIS POC agent</string>
+    <string name="accessibility_service_description">Lets the JARVIS POC read the screen and tap on your behalf while running the Amazon and Instagram demo flows. It only acts when you press Run in the app.</string>
+</resources>

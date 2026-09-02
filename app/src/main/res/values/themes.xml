@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Platform Material theme: avoids pulling in AppCompat for a Compose-only app. -->
+    <style name="Theme.JarvisPoc" parent="android:Theme.Material.NoActionBar" />
+</resources>
